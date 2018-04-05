@@ -21,5 +21,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
         uint Velocity { get; }
 
         uint Course { get; }
+
+        DateTime TimeStamp { get; }
     }
 }
