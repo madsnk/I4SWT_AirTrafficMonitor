@@ -8,7 +8,6 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
 {
     public class Class1
     {
-        transponder = TransponerReceiver.C
-        powerButton.Pressed += new EventHandler(OnPowerPressed);
+        
     }
 }
