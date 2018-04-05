@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4SWT_AirTrafficMonitor.Application", "I4SWT_AirTrafficMonitor.Application\I4SWT_AirTrafficMonitor.Application.csproj", "{789E3C36-8F51-413F-B5B5-9278131DA3E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C466235B-D532-4F75-A2C7-0DC1F59C3DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4SWT_AirTrafficMonitor.Classes", "I4SWT_AirTrafficMonitor.Classes\I4SWT_AirTrafficMonitor.Classes.csproj", "{84B1A06D-BA39-44DC-B259-AE531AF29F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4SWT_AirTrafficMonitor.UnitTesting", "I4SWT_AirTrafficMonitor.UnitTesting\I4SWT_AirTrafficMonitor.UnitTesting.csproj", "{7CCD6C62-9D9B-4B34-B53B-D89D792BB2A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4SWT_AirTrafficMonitor.IntegrationTesting", "I4SWT_AirTrafficMonitor.IntegrationTesting\I4SWT_AirTrafficMonitor.IntegrationTesting.csproj", "{4B51963F-CE77-4BD0-8700-4EBF0034764B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{789E3C36-8F51-413F-B5B5-9278131DA3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789E3C36-8F51-413F-B5B5-9278131DA3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789E3C36-8F51-413F-B5B5-9278131DA3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789E3C36-8F51-413F-B5B5-9278131DA3E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84B1A06D-BA39-44DC-B259-AE531AF29F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B1A06D-BA39-44DC-B259-AE531AF29F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B1A06D-BA39-44DC-B259-AE531AF29F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B1A06D-BA39-44DC-B259-AE531AF29F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CCD6C62-9D9B-4B34-B53B-D89D792BB2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCD6C62-9D9B-4B34-B53B-D89D792BB2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCD6C62-9D9B-4B34-B53B-D89D792BB2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCD6C62-9D9B-4B34-B53B-D89D792BB2A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B51963F-CE77-4BD0-8700-4EBF0034764B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B51963F-CE77-4BD0-8700-4EBF0034764B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B51963F-CE77-4BD0-8700-4EBF0034764B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B51963F-CE77-4BD0-8700-4EBF0034764B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3413D23C-686F-4BB3-8661-4F06ABD62829}
+	EndGlobalSection
+EndGlobal
