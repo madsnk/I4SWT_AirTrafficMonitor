@@ -21,7 +21,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         public void SetUp()
         {
             _output = new ConsoleWrapper();
-            _trackList = new StandardTrackFactory;
+            _trackList = new StandardTrackFactory();
         }
 
 
