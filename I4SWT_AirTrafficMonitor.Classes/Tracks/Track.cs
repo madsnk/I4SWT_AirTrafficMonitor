@@ -52,7 +52,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 
                 var timeDiffSec = track.TimeStamp.Subtract(_oldTimeStamp).TotalSeconds;
 
-                var distance = (_oldXcoor - Xcoor) ^ 2 + (_oldYcoor - Ycoor) ^ 2;
+                var distance = Math.Sqrt(Math.Pow((_oldXcoor - Xcoor), 2) + Math.Pow((_oldYcoor - Ycoor), 2));
 
                 Velocity = (uint) (distance / timeDiffSec);
 
