@@ -8,11 +8,11 @@ using TransponderReceiver;
 
 namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 {
-    class SimpleController
+    public class SimpleController
     {
-        private ITrack _tempTrack; 
+        private ITrack _tempTrack;
 
-        private List<ITrack> _tracks;
+        private List<ITrack> _tracks = new List<ITrack>();
 
         private ITransponderReceiver _receiver;
 
@@ -27,6 +27,9 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         public void OnNewTrackData(object sender, RawTransponderDataEventArgs e)
         {
+            Console.Clear();
+            Console.WriteLine("OnNewTrackData Called");
+
             List<String> rawData = e.TransponderData;
 
             // for each raw track in eventArgs
@@ -37,17 +40,24 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
                 string test = _tempTrack.Tag;
 
+                if ((_tracks==null) || (!_tracks.Any()))
+                {
+                    _tracks.Add(_tempTrack);
+                }
                 //if object tag already in tracks list
                 int objInList = _tracks.FindIndex(x => x.Tag == _tempTrack.Tag);
                 if (objInList != -1)
                 {
                     //update track in list
-                    _tracks[objInList] = _tempTrack;
+                    //_tracks[objInList] = _tempTrack;
+                    _tracks[objInList].UpdateTrack(_tempTrack);
+                    Console.WriteLine((_tracks[objInList].ToString() + "\r\n"));
                 }
                 else
                 {
                     //add to list
                     _tracks.Add(_tempTrack);
+                    Console.WriteLine(_tempTrack.ToString());
                 }
             }
         }

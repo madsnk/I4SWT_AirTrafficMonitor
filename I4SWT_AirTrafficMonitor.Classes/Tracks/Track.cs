@@ -85,6 +85,12 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
         public uint Velocity { get; private set; }
         public uint Course { get; private set; }
         public DateTime TimeStamp { get; private set; }
+
+        public override string ToString()
+        {
+            //return "Person: " + Name + " " + Age;
+            return "Tag: " + Tag + "\r\n" + "Altitude: " + Altitude + "\r\n" + "Velocity: " + Velocity + "\r\n" + "Course:" + Course ;
+        }
     }
 
     public class TrackException : Exception
