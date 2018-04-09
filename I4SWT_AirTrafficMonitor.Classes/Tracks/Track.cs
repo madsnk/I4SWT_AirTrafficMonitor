@@ -42,6 +42,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
             }
             else
             {
+                Altitude = track.Altitude;
+
                 _oldXcoor = Xcoor;
                 _oldYcoor = Ycoor;
 

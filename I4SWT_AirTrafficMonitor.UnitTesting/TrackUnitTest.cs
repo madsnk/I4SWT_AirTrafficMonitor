@@ -12,17 +12,22 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
     [TestFixture]
     class TrackUnitTest
     {
+        private string testTag = "XXX123";
+        private DateTime testTime = new DateTime(2017, 10, 10, 10, 10, 10, 0);
+        private int testXPos = 100;
+        private int testYPos = 100;
+        private uint testAlt = 3000;
         private ITrack _uut;
 
         [SetUp]
         public void Setup()
         {
-            _uut = new Track("XXX123", 1, 1, 100, DateTime.Now);
+            _uut = new Track(testTag, testXPos, testYPos, testAlt, testTime);
         }
 
         // Test CalcCourse
         [Test]
-        public void CalcCourse_FirstQuadrant45deg_AngleIs45()
+        public void CalcCourse_FirstQuadrant45deg_CourseIs45()
         {
             Assert.That(_uut.CalcCourse(1000, 1000), Is.EqualTo(45));
         }
@@ -67,6 +72,56 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         public void CalcCourse_DirectlyWest_CourseIs270()
         {
             Assert.That(_uut.CalcCourse(-2400, 0), Is.EqualTo(270));
+        }
+
+        [Test]
+        public void UpdateTrack_TrackDoesNotReferToSameTag_ThrowsTrackException()
+        {
+            ITrack testTrack = new Track("ZZZ123", 0, 0, 0, DateTime.Now);
+            Assert.That(() => _uut.UpdateTrack(testTrack), Throws.TypeOf<TrackException>());
+        }
+
+        [TestCase(100, 0, 1, 100)]
+        [TestCase(1200, 0, 10, 120)]
+        [TestCase(0, 2800, 20, 140)]
+        [TestCase(300, 400, 10, 50)]
+        [TestCase(-100, 0, 1, 100)]
+        [TestCase(-300, -400, 10, 50)]
+        public void UpdateTrack_MovingDifferentDirections_VelocityIsCorrect(int xDifference, int yDifference, int timeDiffSec, int expectedVel)
+        {
+            var t2 = testTime.AddSeconds(timeDiffSec);
+            ITrack testTrack = new Track(testTag, testXPos+xDifference, testYPos+yDifference, testAlt, t2);
+
+            _uut.UpdateTrack(testTrack);
+            Assert.That(_uut.Velocity, Is.EqualTo(expectedVel));
+        }
+
+        [TestCase(1000)]
+        [TestCase(-1000)]
+        [TestCase(0)]
+        public void UpdateTrack_NewAltitude_AltitudeIsCorrect(int altitudeDiff)
+        {
+            var newAlt = testAlt + altitudeDiff;
+            ITrack testTrack = new Track(testTag, testXPos+1000, testYPos+1000, (uint)newAlt, testTime.AddSeconds(10));
+
+            _uut.UpdateTrack(testTrack);
+            Assert.That(_uut.Altitude, Is.EqualTo(testAlt+altitudeDiff));
+        }
+
+        [TestCase(100, 100, 45)]
+        [TestCase(100, -100, 135)]
+        [TestCase(-100, 100, 315)]
+        [TestCase(-100, -100, 225)]
+        [TestCase(0, 100, 0)]
+        [TestCase(100, 0, 90)]
+        [TestCase(0, -1000, 180)]
+        [TestCase(-1200, 0, 270)]
+        public void UpdateTrack_MoveDifferentDirections_CourseIsCorrect(int xDifference, int yDifference, int expectedCourse)
+        {
+            ITrack testTrack = new Track(testTag, testXPos + xDifference, testYPos + yDifference, testAlt, testTime.AddSeconds(10));
+
+            _uut.UpdateTrack(testTrack);
+            Assert.That(_uut.Course, Is.EqualTo(expectedCourse));
         }
     }
 }
