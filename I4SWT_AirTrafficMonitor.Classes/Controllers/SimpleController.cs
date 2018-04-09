@@ -12,7 +12,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
     {
         private ITrack _tempTrack;
 
-        private List<ITrack> _tracks = new List<ITrack>();
+        private List<ITrack> _tracks;// = new List<ITrack>();
 
         private ITransponderReceiver _receiver;
 
@@ -20,12 +20,14 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         private IConsoleWrapper _console;
 
-        public SimpleController(ITransponderReceiver receiver, IConsoleWrapper console)
+        public SimpleController(ITransponderReceiver receiver, IConsoleWrapper console, ITrackFactory trackFactory, List<ITrack> tracks)
         {
-            _trackFactory = new StandardTrackFactory();
+            _trackFactory = trackFactory;// = new StandardTrackFactory();
 
             _receiver = receiver;
             _receiver.TransponderDataReady += OnNewTrackData;
+
+            _tracks = tracks;
 
             _console = console;
         }

@@ -8,6 +8,7 @@ using NUnit.Framework;
 using NSubstitute;
 using I4SWT_AirTrafficMonitor.Classes.Controllers;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
+using I4SWT_AirTrafficMonitor.Classes.Tracks;
 using TransponderReceiver;
 
 namespace I4SWT_AirTrafficMonitor.UnitTesting
@@ -16,34 +17,70 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
     class SimpleControllerUnitTest
     {
         private SimpleController _uut;
-        //private ITrack _track;
+        private ITrack _track;
         private ITransponderReceiver _receiver;
         private IConsoleWrapper _console;
         private List<ITrack> _tracks;
+        private ITrackFactory _trackFactory;
 
         [SetUp]
         public void SetUp()
         {
             _console = Substitute.For<IConsoleWrapper>();
             _receiver = Substitute.For<ITransponderReceiver>();
-            _uut = new SimpleController(_receiver,_console);
+            _trackFactory = new FakeTrackFactory();
+            _track = Substitute.For<ITrack>();
+            _tracks = new List<ITrack>();
+            _uut = new SimpleController(_receiver,_console,_trackFactory,_tracks);
         }
 
         [Test]
-        public void someTest()
+        public void OnNewTrackData_AddNonExixtingData_DataAddedToList()
         {
-            //var args = new RawTransponderDataEventArgs() { TransponderData = "rawstringTest" };
             var fakeStrings = new List<string>
             {
-                "ATR423;39045;12932;14000;20151006213456789"
+                "ATR423"
             };
+            
+            _track = _trackFactory.CreateTrack(fakeStrings[0]);
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _console.Received().Report("OnNewTrackData Called");
+            Assert.That(_tracks.Count(x => x.Tag.Equals("ATR423")) == 1);
         }
 
+        [Test]
+        public void OnNewTrackData_AddExixtingData_OnlyOneCopyOfPlaneInList()
+        {
+            var fakeStrings = new List<string>
+            {
+                "ATR423"
+            };
 
+            _track = _trackFactory.CreateTrack(fakeStrings[0]);
 
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+
+            Assert.That(_tracks.Count(x => x.Tag.Equals("ATR423")) == 1);
+        }
+
+        [Test]
+        public void OnNewTrackData_AddExixtingData_DataUpdatedInList()
+        {
+            var fakeStrings = new List<string>
+            {
+                "ATR423"
+            };
+
+            //_track = _trackFactory.CreateTrack(fakeStrings[0]);
+
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+
+            _track = _tracks.Find(x => x.Tag.Equals("ATR423"));
+
+            _track.Received(1).UpdateTrack(_track);
+        }
     }
 }

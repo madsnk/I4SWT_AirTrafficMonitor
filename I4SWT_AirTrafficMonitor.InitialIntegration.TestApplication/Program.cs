@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using I4SWT_AirTrafficMonitor.Classes;
 using TransponderReceiver;
 using I4SWT_AirTrafficMonitor.Classes.Controllers;
+using I4SWT_AirTrafficMonitor.Classes.Tracks;
 
 namespace I4SWT_AirTrafficMonitor.InitialIntegration.TestApplication
 {
@@ -18,8 +19,10 @@ namespace I4SWT_AirTrafficMonitor.InitialIntegration.TestApplication
             SimpleController controller;
             ITransponderReceiver receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
             IConsoleWrapper console = new ConsoleWrapper();
+            ITrackFactory trackFactory = new FakeTrackFactory();
+            List<ITrack> tracks = new List<ITrack>();
 
-            controller = new SimpleController(receiver, console);
+            controller = new SimpleController(receiver, console, trackFactory, tracks);
 
             Console.ReadLine();
         }
