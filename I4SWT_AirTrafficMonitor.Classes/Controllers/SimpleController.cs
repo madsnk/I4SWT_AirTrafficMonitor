@@ -42,6 +42,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             // for each raw track in eventArgs
             foreach (string track in rawData)
             {
+                //_console.Report(track + "\r\n");
                 //create Track object (using TrackFactory)
                 _tempTrack = _trackFactory.CreateTrack(track);
 
