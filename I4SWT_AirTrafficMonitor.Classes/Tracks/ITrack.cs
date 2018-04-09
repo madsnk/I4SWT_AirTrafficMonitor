@@ -10,6 +10,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
     {
         void UpdateTrack(ITrack track);
 
+        uint CalcCourse(int xComponent, int yComponent);
+
         string Tag { get; }
 
         int Xcoor { get; }

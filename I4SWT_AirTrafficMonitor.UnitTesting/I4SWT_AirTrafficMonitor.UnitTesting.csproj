@@ -62,6 +62,7 @@
     <Compile Include="ATM.Test.Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleControllerUnitTest.cs" />
+    <Compile Include="TrackUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\I4SWT_AirTrafficMonitor.Classes\I4SWT_AirTrafficMonitor.Classes.csproj">
