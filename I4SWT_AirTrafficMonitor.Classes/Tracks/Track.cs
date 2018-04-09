@@ -71,6 +71,10 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
             // if in 1. quadrant
             if (xComponent >= 0 && yComponent >= 0)
             {
+                if (yComponent == 0)
+                {
+                    return 90;
+                }
                 var radians = Math.Atan(opposite / adjacent);
 
                 return (uint)(radians * (180 / Math.PI));
@@ -78,6 +82,10 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
             // if in 2. quadrant
             else if (xComponent <= 0 && yComponent >= 0)
             {
+                if (yComponent == 0)
+                {
+                    return 270;
+                }
                 var radians = Math.Atan(opposite / adjacent);
 
                 return 360 - (uint)(radians * (180 / Math.PI));
