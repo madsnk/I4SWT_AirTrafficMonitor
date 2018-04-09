@@ -50,20 +50,37 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         }
 
         [Test]
-        public void OnNewTrackData_AddExixtingData_DataUpdatedInList()
+        public void OnNewTrackData_AddExixtingData_OnlyOneCopyOfPlaneInList()
         {
             var fakeStrings = new List<string>
             {
-                "ATR423",
                 "ATR423"
             };
 
             _track = _trackFactory.CreateTrack(fakeStrings[0]);
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-            //_receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
             Assert.That(_tracks.Count(x => x.Tag.Equals("ATR423")) == 1);
+        }
+
+        [Test]
+        public void OnNewTrackData_AddExixtingData_DataUpdatedInList()
+        {
+            var fakeStrings = new List<string>
+            {
+                "ATR423"
+            };
+
+            //_track = _trackFactory.CreateTrack(fakeStrings[0]);
+
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+
+            _track = _tracks.Find(x => x.Tag.Equals("ATR423"));
+
+            _track.Received(1).UpdateTrack(_track);
         }
     }
 }
