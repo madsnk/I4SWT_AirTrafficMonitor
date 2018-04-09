@@ -34,8 +34,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         public void OnNewTrackData(object sender, RawTransponderDataEventArgs e)
         {
-            //Console.Clear();
-            //Console.WriteLine("OnNewTrackData Called");
             _console.Clear();
             _console.Report("OnNewTrackData Called");
 
@@ -52,7 +50,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 if (!_tracks.Any())
                 {
                     _tracks.Add(_tempTrack);
-                    Console.WriteLine(_tempTrack.ToString());
+                    _console.Report(_tempTrack.ToString());
                 }
                 else
                 {
@@ -63,13 +61,13 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                         //update track in list
                         //_tracks[objInList] = _tempTrack;
                         _tracks[objInList].UpdateTrack(_tempTrack);
-                        Console.WriteLine((_tracks[objInList].ToString() + "\r\n"));
+                        _console.Report((_tracks[objInList].ToString() + "\r\n"));
                     }
                     else
                     {
                         //add to list
                         _tracks.Add(_tempTrack);
-                        Console.WriteLine(_tempTrack.ToString());
+                        _console.Report(_tempTrack.ToString());
                     }
                 }
             }
