@@ -73,5 +73,26 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
             Assert.That(_uut.GetTracks()[0].Velocity, Is.EqualTo(100));
             Assert.That(_uut.GetTracks()[0].Course, Is.EqualTo(90));
         }
+
+        [Test]
+        public void OnNewTrackData_NewTrackWithExistingTagInNegativeDirection_TrackInListIsUpdatedCorrect()
+        {
+            var testData = new List<string>
+            {
+                "XXX123;10000;10000;15000;20171122112200100"
+            };
+
+            _testReceiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData));
+
+            var testData2 = new List<string>
+            {
+                "XXX123;5000;10000;15000;20171122112250100" // Add 50 sec
+            };
+
+            _testReceiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData2));
+
+            Assert.That(_uut.GetTracks()[0].Velocity, Is.EqualTo(100));
+            Assert.That(_uut.GetTracks()[0].Course, Is.EqualTo(270));
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         public void OnNewTrackData(object sender, RawTransponderDataEventArgs e)
         {
+            string dummyChange = "";
             _console.Clear();
             _console.Report("OnNewTrackData Called");
 
