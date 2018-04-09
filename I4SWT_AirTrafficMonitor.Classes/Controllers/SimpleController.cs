@@ -18,17 +18,26 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         private ITrackFactory _trackFactory;
 
-        public SimpleController(ITransponderReceiver receiver)
+        private IConsoleWrapper _console;
+
+        public SimpleController(ITransponderReceiver receiver, IConsoleWrapper console)
         {
             _trackFactory = new StandardTrackFactory();
+
             _receiver = receiver;
             _receiver.TransponderDataReady += OnNewTrackData;
+
+            _console = console;
+
+
         }
 
         public void OnNewTrackData(object sender, RawTransponderDataEventArgs e)
         {
-            Console.Clear();
-            Console.WriteLine("OnNewTrackData Called");
+            //Console.Clear();
+            //Console.WriteLine("OnNewTrackData Called");
+            _console.Clear();
+            _console.Report("OnNewTrackData Called");
 
             List<String> rawData = e.TransponderData;
 

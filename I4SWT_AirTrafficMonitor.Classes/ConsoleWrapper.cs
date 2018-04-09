@@ -12,5 +12,10 @@ namespace I4SWT_AirTrafficMonitor.Classes
         {
             Console.WriteLine(arg);
         }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
     }
 }

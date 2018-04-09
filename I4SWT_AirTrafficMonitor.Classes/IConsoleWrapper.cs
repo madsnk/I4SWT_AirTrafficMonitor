@@ -9,5 +9,7 @@ namespace I4SWT_AirTrafficMonitor.Classes
     public interface IConsoleWrapper
     {
         void Report(string arg);
+        void Clear();
     }
+
 }
