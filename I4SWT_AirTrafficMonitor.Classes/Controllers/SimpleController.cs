@@ -28,8 +28,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             _receiver.TransponderDataReady += OnNewTrackData;
 
             _console = console;
-
-
         }
 
         public void OnNewTrackData(object sender, RawTransponderDataEventArgs e)

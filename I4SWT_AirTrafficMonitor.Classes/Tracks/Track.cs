@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 {
-    class Track : ITrack
+    public class Track : ITrack
     {
         private string _tag;
 
