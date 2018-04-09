@@ -37,5 +37,20 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         {
             Assert.That(true, Is.EqualTo(true));
         }
+
+        [Test]
+        public void OnNewTrackData_OneNewTrackIntoEmptyTrackList_TrackListHasNewTrack()
+        {
+            var testData = new List<string>
+            {
+                "XXX123;10000;10000;15000;201711221133100"
+            };
+
+            _testReceiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData));
+
+            ITrack _expectedTrack = new Track("XXX123", 10000, 10000, 15000, new DateTime(2017, 11, 22, 11, 33, 100));
+
+            Assert.That(_uut.GetTracks()[0].ToString(), Is.EqualTo(_expectedTrack.ToString())); // Should override Equals() instead probably
+        }
     }
 }

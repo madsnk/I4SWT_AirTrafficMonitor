@@ -12,13 +12,18 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
     {
         private ITrack _tempTrack;
 
-        private List<ITrack> _tracks;// = new List<ITrack>();
+        private List<ITrack> _tracks;
 
         private ITransponderReceiver _receiver;
 
         private ITrackFactory _trackFactory;
 
         private IConsoleWrapper _console;
+
+        public List<ITrack> GetTracks()
+        {
+            return _tracks;
+        }
 
         public SimpleController(ITransponderReceiver receiver, IConsoleWrapper console, ITrackFactory trackFactory, List<ITrack> tracks)
         {
