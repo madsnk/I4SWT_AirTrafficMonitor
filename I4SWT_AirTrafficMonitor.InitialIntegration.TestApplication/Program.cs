@@ -19,7 +19,7 @@ namespace I4SWT_AirTrafficMonitor.InitialIntegration.TestApplication
             SimpleController controller;
             ITransponderReceiver receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
             IConsoleWrapper console = new ConsoleWrapper();
-            ITrackFactory trackFactory = new FakeTrackFactory();
+            ITrackFactory trackFactory = new StandardTrackFactory();
             List<ITrack> tracks = new List<ITrack>();
 
             controller = new SimpleController(receiver, console, trackFactory, tracks);
