@@ -40,24 +40,28 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
                 string test = _tempTrack.Tag;
 
-                if ((_tracks==null) || (!_tracks.Any()))
+                if (!_tracks.Any())
                 {
                     _tracks.Add(_tempTrack);
-                }
-                //if object tag already in tracks list
-                int objInList = _tracks.FindIndex(x => x.Tag == _tempTrack.Tag);
-                if (objInList != -1)
-                {
-                    //update track in list
-                    //_tracks[objInList] = _tempTrack;
-                    _tracks[objInList].UpdateTrack(_tempTrack);
-                    Console.WriteLine((_tracks[objInList].ToString() + "\r\n"));
+                    Console.WriteLine(_tempTrack.ToString());
                 }
                 else
                 {
-                    //add to list
-                    _tracks.Add(_tempTrack);
-                    Console.WriteLine(_tempTrack.ToString());
+                    //if object tag already in tracks list
+                    int objInList = _tracks.FindIndex(x => x.Tag == _tempTrack.Tag);
+                    if (objInList != -1)
+                    {
+                        //update track in list
+                        //_tracks[objInList] = _tempTrack;
+                        _tracks[objInList].UpdateTrack(_tempTrack);
+                        Console.WriteLine((_tracks[objInList].ToString() + "\r\n"));
+                    }
+                    else
+                    {
+                        //add to list
+                        _tracks.Add(_tempTrack);
+                        Console.WriteLine(_tempTrack.ToString());
+                    }
                 }
             }
         }

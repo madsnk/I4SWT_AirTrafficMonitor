@@ -56,7 +56,49 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 
                 Velocity = (uint) (distance / timeDiffSec);
 
-                Course = 180;
+                // Course Calculation
+                var xDirection = Xcoor - _oldXcoor;
+                var yDirection = Ycoor - _oldYcoor;
+
+                Course = CalcCourse(xDirection, yDirection);
+            }
+        }
+
+        public uint CalcCourse(int xComponent, int yComponent)
+        {
+            var opposite = Math.Abs(xComponent);
+            var adjacent = Math.Abs(yComponent);
+            // if in 1. quadrant
+            if (xComponent >= 0 && yComponent >= 0)
+            {
+                var radians = Math.Atan(opposite / adjacent);
+
+                return (uint)(radians * (180 / Math.PI));
+            }
+            // if in 2. quadrant
+            else if (xComponent <= 0 && yComponent >= 0)
+            {
+                var radians = Math.Atan(opposite / adjacent);
+
+                return 360 - (uint)(radians * (180 / Math.PI));
+            }
+            // if in 3.
+            else if (xComponent <= 0 && yComponent <= 0)
+            {
+                var radians = Math.Atan(opposite / adjacent);
+
+                return 180 + (uint)(radians * (180 / Math.PI));
+            }
+            // if in 4.
+            else if (xComponent >= 0 && yComponent <= 0)
+            {
+                var radians = Math.Atan(opposite / adjacent);
+
+                return 180 - (uint)(radians * (180 / Math.PI));
+            }
+            else
+            {
+                return 0;
             }
         }
 
@@ -89,7 +131,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
         public override string ToString()
         {
             //return "Person: " + Name + " " + Age;
-            return "Tag: " + Tag + "\r\n" + "Altitude: " + Altitude + "\r\n" + "Velocity: " + Velocity + "\r\n" + "Course:" + Course ;
+            return "Tag: " + Tag + "\r\n" + $"Altitude: " + Altitude + " m\r\n" + "Velocity: " + Velocity + " m/s\r\n" + "Coordinates: (" + Xcoor +", " + Ycoor + ")\r\n" + "Course:" + Course + "deg";
         }
     }
 
