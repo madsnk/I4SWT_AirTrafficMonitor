@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using I4SWT_AirTrafficMonitor.Classes;
 using I4SWT_AirTrafficMonitor.Classes.Controllers;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using TransponderReceiver;
 
 namespace I4SWT_AirTrafficMonitor.IntegrationTesting
