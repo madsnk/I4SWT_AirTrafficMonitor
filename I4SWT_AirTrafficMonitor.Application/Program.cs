@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using I4SWT_AirTrafficMonitor.Classes;
 using I4SWT_AirTrafficMonitor.Classes.AirSpace;
 using I4SWT_AirTrafficMonitor.Classes.Controllers;

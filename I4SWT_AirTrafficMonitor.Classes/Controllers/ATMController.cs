@@ -37,19 +37,20 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
         void OnNewTrackData(object sender, RawTransponderDataEventArgs eventArgs)
         {
             _console.Clear();
-            _console.Report("OnNewTrackData Called");
+            DrawPlane();
 
             List<String> rawTrackData = eventArgs.TransponderData;
 
             // for each raw track in eventArgs
             foreach (string track in rawTrackData)
             {
+                //_console.Report(track);
                 _tempTrack = _trackFactory.CreateTrack(track);
 
                 if (!_tracks.Any())
                 {
                     _tracks.Add(_tempTrack);
-                    _console.Report(_tempTrack.ToString());
+                    //_console.Report(_tempTrack.ToString());
                 }
                 else
                 {
@@ -67,9 +68,51 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 }
             }
             _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
-            if (_activeSeperationEvents.Any())
+
+            PrintRawData(rawTrackData);
+            Draw(_tracks, _activeSeperationEvents);
+        }
+
+        void Draw(List<ITrack> tracks, List<ISeperationEvent> seperations)
+        {
+            _console.Report("\r\n********************************************************************");
+            _console.Report("***************** All Tracks in monitored Airspace *****************");
+            _console.Report("********************************************************************");
+            foreach (var track in tracks)
             {
-                _console.Report(_activeSeperationEvents[0].FirstTrackTag);
+                _console.Report(track.ToString() + "\r\n");
+            }
+        }
+
+        void PrintRawData(List<string> rawData)
+        {
+            _console.Report("********************************************************************");
+            _console.Report("    All raw trackdata beeing received:\r\n");
+            foreach (var track in rawData)
+            {
+                _console.Report(track);
+            }
+        }
+
+        void DrawPlane()
+        {
+            var plane = new[]
+            {
+                @"                                    |                              ",
+                @"Air Traffic Monitor                 |                              ",
+                @"Ultimate Edition                    |                              ",
+                @"				  .-'-.                            ",
+                @"                                 ' ___ '                           ",
+                @"                       ---------'  .-.  '---------                 ",
+                @"       _________________________'  '-'  '_________________________ ",
+                @"        ''''''-|---|--/    \==][^',_m_,'^][==/    \--|---|-''''''  ",
+                @"                      \    /  ||/   H   \||  \    /                ",
+                @"                       '--'   OO   O|O   OO   '--'                 ",
+            };
+
+            foreach (var line in plane)
+            {
+                _console.Report(line);
             }
         }
     }
