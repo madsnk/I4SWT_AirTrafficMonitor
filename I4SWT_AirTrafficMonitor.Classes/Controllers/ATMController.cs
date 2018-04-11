@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using I4SWT_AirTrafficMonitor.Classes.AirSpace;
 using I4SWT_AirTrafficMonitor.Classes.SeperationEvent;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
@@ -10,7 +11,7 @@ using TransponderReceiver;
 
 namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 {
-    class ATMController
+    public class ATMController
     {
         private ITrack _tempTrack;
         private List<ITrack> _tracks;
@@ -56,18 +57,19 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                     int objInList = _tracks.FindIndex(x => x.Tag == _tempTrack.Tag);
                     if (objInList != -1)
                     {
-                        //update track in list
-                        //_tracks[objInList] = _tempTrack;
                         _tracks[objInList].UpdateTrack(_tempTrack);
-                        _console.Report((_tracks[objInList].ToString() + "\r\n"));
                     }
                     else
                     {
                         //add to list
                         _tracks.Add(_tempTrack);
-                        _console.Report(_tempTrack.ToString());
                     }
                 }
+            }
+            _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
+            if (_activeSeperationEvents.Any())
+            {
+                _console.Report(_activeSeperationEvents[0].FirstTrackTag);
             }
         }
     }
