@@ -8,5 +8,12 @@ namespace I4SWT_AirTrafficMonitor.Classes.SeperationEvent
 {
     public interface ISeperationEvent
     {
+        string FirstTrackTag { get; }
+
+        string SecondTrackTag { get; }
+
+        int VerticalSeperation { get; }
+
+        int HorizontalSeperation { get; }
     }
 }
