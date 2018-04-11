@@ -115,5 +115,20 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 _console.Report(line);
             }
         }
+
+        void PrintTracksTable(List<ITrack> tracks)
+        {
+            for (int i = 0; i < tracks.Count; i += 3)
+            {
+                var tableRow = new[]
+                {
+                    $"Tag: {tracks[i].Tag}                                Tag: {tracks[i+1].Tag}",
+                    $"Altitude: {tracks[i].Altitude} m                    Altitude: {tracks[i+1].Altitude} m",
+                    $"Velocity: {tracks[i].Velocity} m/s                  Velocity: {tracks[i].Velocity} m/s",
+                    $"Coordinates: ({tracks[i].Xcoor},{tracks[i].Ycoor})  Coordinates: ({tracks[i].Xcoor},{tracks[i].Ycoor})",
+                    $"Course: {tracks[i].Course} deg                      Course: {tracks[i].Course} deg"
+                };
+            }
+        }
     }
 }
