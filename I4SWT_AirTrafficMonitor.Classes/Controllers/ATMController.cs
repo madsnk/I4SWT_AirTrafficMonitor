@@ -7,6 +7,7 @@ using Castle.Core.Internal;
 using I4SWT_AirTrafficMonitor.Classes.AirSpace;
 using I4SWT_AirTrafficMonitor.Classes.SeperationEvent;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
+using I4SWT_AirTrafficMonitor.Classes.Log;
 using TransponderReceiver;
 
 namespace I4SWT_AirTrafficMonitor.Classes.Controllers
@@ -20,6 +21,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
         private IConsoleWrapper _console;
         private IAirSpace _myAirSpace;
         private List<ISeperationEvent> _activeSeperationEvents;
+        private ILog _log = new Log.Log("testlog");
 
         public ATMController(ITransponderReceiver receiver, ITrackFactory trackFactory, IConsoleWrapper console,
             IAirSpace airspace, List<ITrack> tracks, List<ISeperationEvent> seperationEvents)
@@ -32,6 +34,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             _activeSeperationEvents = seperationEvents;
 
             _receiver.TransponderDataReady += OnNewTrackData;
+
+
         }
 
         void OnNewTrackData(object sender, RawTransponderDataEventArgs eventArgs)
@@ -44,6 +48,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             // for each raw track in eventArgs
             foreach (string track in rawTrackData)
             {
+                _log.Append(track);
                 //_console.Report(track);
                 _tempTrack = _trackFactory.CreateTrack(track);
 
@@ -68,6 +73,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 }
             }
             _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
+
+            
 
             PrintRawData(rawTrackData);
             Draw(_tracks, _activeSeperationEvents);
