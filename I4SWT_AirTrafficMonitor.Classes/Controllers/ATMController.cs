@@ -21,10 +21,10 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
         private IConsoleWrapper _console;
         private IAirSpace _myAirSpace;
         private List<ISeperationEvent> _activeSeperationEvents;
-        private ILog _log = new Log.Log("testlog");
+        private ILog _log;
 
         public ATMController(ITransponderReceiver receiver, ITrackFactory trackFactory, IConsoleWrapper console,
-            IAirSpace airspace, List<ITrack> tracks, List<ISeperationEvent> seperationEvents)
+            IAirSpace airspace, List<ITrack> tracks, List<ISeperationEvent> seperationEvents,ILog log)
         {
             _receiver = receiver;
             _trackFactory = trackFactory;
@@ -32,6 +32,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             _myAirSpace = airspace;
             _tracks = tracks;
             _activeSeperationEvents = seperationEvents;
+            _log = log;
 
             _receiver.TransponderDataReady += OnNewTrackData;
 
@@ -78,7 +79,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             PrintRawData(rawTrackData);
             Draw(_tracks, _activeSeperationEvents);
 
-            Log(_activeSeperationEvents);
         }
 
         void Log(List<ISeperationEvent> seperations)
@@ -86,7 +86,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             foreach (var seperation in seperations)
             {
                 //_console.Report("SEPARATION EVENT");
-                _log.Append(seperation.ToString());
+                _log.Append(seperation.csvFormat());
             }
         }
 

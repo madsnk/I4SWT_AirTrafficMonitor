@@ -22,6 +22,11 @@ namespace I4SWT_AirTrafficMonitor.Classes.SeperationEvent
 
         public DateTime TimeOfOccurrence { get; }
 
+        public string csvFormat()
+        {
+            return TimeOfOccurrence.ToString("yyyy-MM-dd HH.mm.ss.fff") + ";" + FirstTrackTag + ";" + SecondTrackTag + "\n";
+        }
+
         public override string ToString()
         {
             return TimeOfOccurrence.ToString("yyyy-MM-dd HH.mm.ss.fff")  + ";" + FirstTrackTag + ";" + SecondTrackTag + "\n";
