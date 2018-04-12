@@ -10,8 +10,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Log
     public class Log : ILog
     {
         private string _filePath;
-        //private StringBuilder sb = new StringBuilder();
-        //private DirectoryInfo di =  new DirectoryInfo();
 
         public Log(string filePath)
         {
