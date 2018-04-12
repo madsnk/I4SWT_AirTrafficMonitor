@@ -15,5 +15,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.SeperationEvent
         int VerticalSeperation { get; }
 
         int HorizontalSeperation { get; }
+
+        DateTime TimeOfOccurrence { get; }
     }
 }

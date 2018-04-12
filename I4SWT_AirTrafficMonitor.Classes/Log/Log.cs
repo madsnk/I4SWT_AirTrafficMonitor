@@ -16,7 +16,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Log
         public Log(string filePath)
         {
             _filePath = filePath + String.Format("_{0}.csv", DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss"));
-            //_filePath = filePath;
+            File.AppendAllText(_filePath, "Time Of Occurrence;First Track Tag;Second Track Tag\n");
         }
 
         public void Append(string newData)

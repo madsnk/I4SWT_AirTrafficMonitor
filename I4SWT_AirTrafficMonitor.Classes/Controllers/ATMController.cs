@@ -48,7 +48,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             // for each raw track in eventArgs
             foreach (string track in rawTrackData)
             {
-                _log.Append(track);
                 //_console.Report(track);
                 _tempTrack = _trackFactory.CreateTrack(track);
 
@@ -74,7 +73,11 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             }
             _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
 
-            
+            foreach (var seperationEvent in _activeSeperationEvents)
+            {
+                _log.Append(seperationEvent.ToString());
+            }
+
 
             PrintRawData(rawTrackData);
             Draw(_tracks, _activeSeperationEvents);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using I4SWT_AirTrafficMonitor.Classes.SeperationEvent;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
 
@@ -41,7 +42,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.AirSpace
                     if (horizontalDist <= _horizontalSeperationTolerance &&
                         verticalDist <= _verticalSeperationTolerance)
                     {
-                        activeSeperationEvents.Add(new SeperationEvent.SeperationEvent(tracks[i].Tag, tracks[p].Tag, (int)verticalDist, horizontalDist));
+                        var timeOfOccurrence = (tracks[i].TimeStamp > tracks[p].TimeStamp ? tracks[i].TimeStamp : tracks[p].TimeStamp);
+                        activeSeperationEvents.Add(new SeperationEvent.SeperationEvent(tracks[i].Tag, tracks[p].Tag, (int)verticalDist, horizontalDist, timeOfOccurrence));
                     }
                 }
             }
