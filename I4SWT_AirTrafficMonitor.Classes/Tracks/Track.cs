@@ -141,7 +141,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
         public override string ToString()
         {
             //return "Person: " + Name + " " + Age;
-            return "Tag: " + Tag + "\r\n" + $"Altitude: " + Altitude + " m\r\n" + "Velocity: " + Velocity + " m/s\r\n" + "Coordinates: (" + Xcoor +", " + Ycoor + ")\r\n" + "Course:" + Course + "deg";
+            return "Tag:          " + Tag + "\r\n" + $"Altitude:     " + Altitude + " m\r\n" + "Velocity:     " + Velocity + " m/s\r\n" + "Coordinates:  (" + Xcoor +", " + Ycoor + ")\r\n" + "Course:       " + Course + "deg";
         }
     }
 
