@@ -99,6 +99,14 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             {
                 _console.Report(track.ToString() + "\r\n");
             }
+
+            _console.Report("\r\n********************************************************************");
+            _console.Report("******************** Current Seperation Events *********************");
+            _console.Report("********************************************************************");
+            foreach (var seperation in seperations)
+            {
+                _console.Report(seperation.ToString());
+            }
         }
 
         void PrintRawData(List<string> rawData)
