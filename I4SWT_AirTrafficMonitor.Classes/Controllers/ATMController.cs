@@ -73,14 +73,21 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             }
             _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
 
-            foreach (var seperationEvent in _activeSeperationEvents)
-            {
-                _log.Append(seperationEvent.ToString());
-            }
-
+            Log(_activeSeperationEvents);
 
             PrintRawData(rawTrackData);
             Draw(_tracks, _activeSeperationEvents);
+
+            Log(_activeSeperationEvents);
+        }
+
+        void Log(List<ISeperationEvent> seperations)
+        {
+            foreach (var seperation in seperations)
+            {
+                //_console.Report("SEPARATION EVENT");
+                _log.Append(seperation.ToString());
+            }
         }
 
         void Draw(List<ITrack> tracks, List<ISeperationEvent> seperations)
