@@ -16,7 +16,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         private DateTime testTime = new DateTime(2017, 10, 10, 10, 10, 10, 0);
         private int testXPos = 100;
         private int testYPos = 100;
-        private uint testAlt = 3000;
+        private int testAlt = 3000;
         private ITrack _uut;
 
         [SetUp]
@@ -102,7 +102,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         public void UpdateTrack_NewAltitude_AltitudeIsCorrect(int altitudeDiff)
         {
             var newAlt = testAlt + altitudeDiff;
-            ITrack testTrack = new Track(testTag, testXPos+1000, testYPos+1000, (uint)newAlt, testTime.AddSeconds(10));
+            ITrack testTrack = new Track(testTag, testXPos+1000, testYPos+1000, newAlt, testTime.AddSeconds(10));
 
             _uut.UpdateTrack(testTrack);
             Assert.That(_uut.Altitude, Is.EqualTo(testAlt+altitudeDiff));
@@ -127,7 +127,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         [Test]
         public void UpdateTrack_SeveralUpdates_VelocityIsCorrect()
         {
-            uint alt = 18000;
+            int alt = 18000;
             var xStart = 80000;
             var yStart = 80000;
 

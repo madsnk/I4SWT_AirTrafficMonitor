@@ -44,23 +44,74 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         }
 
         [Test]
-        public void SortTracks()
+        public void SortTracks_add3CloseTracksWithinAirspace_3SeparationEvent()
         {
-            _seperationEvents.Add(Substitute.For<ISeperationEvent>());
+            
 
             _tracks.Add(Substitute.For<ITrack>());
-            _tracks[0].Xcoor.Returns(10001);
-            _tracks[0].Ycoor.Returns(10001);
-            _tracks[0].Altitude.Returns((uint)1001);
+            _tracks[0].Xcoor.Returns(10003);
+            _tracks[0].Ycoor.Returns(10003);
+            _tracks[0].Altitude.Returns(1003);
 
             _tracks.Add(Substitute.For<ITrack>());
-            _tracks[1].Xcoor.Returns(10002);
-            _tracks[1].Ycoor.Returns(10002);
-            _tracks[1].Altitude.Returns((uint)1000);
+            _tracks[1].Xcoor.Returns(10001);
+            _tracks[1].Ycoor.Returns(10001);
+            _tracks[1].Altitude.Returns(1001);
+
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[2].Xcoor.Returns(10002);
+            _tracks[2].Ycoor.Returns(10002);
+            _tracks[2].Altitude.Returns(1002);
 
             _uut.SortTracks(ref _tracks,ref _seperationEvents);
 
-           Assert.That(_seperationEvents.Count,Is.EqualTo(1));
+           Assert.That(_seperationEvents.Count,Is.EqualTo(3));
+
+        }
+
+        [Test]
+        public void SortTracks_add3CloseTracksOutOfAirspace_0SeparationEvent()
+        {
+
+
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[0].Xcoor.Returns(1003);
+            _tracks[0].Ycoor.Returns(1003);
+            _tracks[0].Altitude.Returns(1003);
+
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[1].Xcoor.Returns(1001);
+            _tracks[1].Ycoor.Returns(1001);
+            _tracks[1].Altitude.Returns(1001);
+
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[2].Xcoor.Returns(1002);
+            _tracks[2].Ycoor.Returns(1002);
+            _tracks[2].Altitude.Returns(1002);
+
+            _uut.SortTracks(ref _tracks, ref _seperationEvents);
+
+            Assert.That(_seperationEvents.Count, Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void SortTracks_add2CloseTracksInAirspaceSWBoundary_1SeparationEvent()
+        {
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[0].Xcoor.Returns(10000);
+            _tracks[0].Ycoor.Returns(10000);
+            _tracks[0].Altitude.Returns(501);
+
+            _tracks.Add(Substitute.For<ITrack>());
+            _tracks[1].Xcoor.Returns(10000);
+            _tracks[1].Ycoor.Returns(10001);
+            _tracks[1].Altitude.Returns(500);
+
+
+            _uut.SortTracks(ref _tracks, ref _seperationEvents);
+
+            Assert.That(_seperationEvents.Count, Is.EqualTo(1));
 
         }
     }

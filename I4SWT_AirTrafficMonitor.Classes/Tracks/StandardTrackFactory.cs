@@ -17,7 +17,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
             string tag = rawdataSplit[0];
             int xcoor = Convert.ToInt32(rawdataSplit[1]);
             int ycoor = Convert.ToInt32(rawdataSplit[2]);
-            uint altiude = Convert.ToUInt32(rawdataSplit[3]);
+            int altiude = Convert.ToInt32(rawdataSplit[3]);
             DateTime timeStamp = DateTime.ParseExact(rawdataSplit[4], "yyyyMMddHHmmssfff", CultureInfo.InvariantCulture);
 
             return new Track(tag, xcoor, ycoor, altiude, timeStamp);

@@ -12,7 +12,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
     {
         private string _tag;
 
-        private uint _altitude;
+        private int _altitude;
 
         private uint _velocity;
 
@@ -24,7 +24,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 
         private DateTime _oldTimeStamp;
         // Constructor
-        public Track(string tag, int xcoor, int ycoor, uint altitude, DateTime timeStamp)
+        public Track(string tag, int xcoor, int ycoor, int altitude, DateTime timeStamp)
         {
             Tag = tag;
             Xcoor = xcoor;
@@ -134,7 +134,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 
         public int Ycoor { get; private set; }
 
-        public uint Altitude { get; private set; }
+        public int Altitude { get; private set; }
         public uint Velocity { get; private set; }
         public uint Course { get; private set; }
         public DateTime TimeStamp { get; private set; }
