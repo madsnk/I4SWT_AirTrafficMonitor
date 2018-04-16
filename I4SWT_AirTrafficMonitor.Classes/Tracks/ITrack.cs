@@ -18,7 +18,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
 
         int Ycoor { get; }
 
-        uint Altitude { get; }
+        int Altitude { get; }
 
         uint Velocity { get; }
 
