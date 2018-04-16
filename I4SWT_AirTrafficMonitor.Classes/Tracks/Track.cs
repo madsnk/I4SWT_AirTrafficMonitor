@@ -51,8 +51,9 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
                 Ycoor = track.Ycoor;
 
                 _oldTimeStamp = TimeStamp;
+                TimeStamp = track.TimeStamp;
 
-                var timeDiffSec = track.TimeStamp.Subtract(_oldTimeStamp).TotalSeconds;
+                var timeDiffSec = TimeStamp.Subtract(_oldTimeStamp).TotalSeconds;
 
                 var distance = Math.Sqrt(Math.Pow((_oldXcoor - Xcoor), 2) + Math.Pow((_oldYcoor - Ycoor), 2));
 
