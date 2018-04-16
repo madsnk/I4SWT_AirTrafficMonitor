@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirSpaceUnitTest.cs" />
     <Compile Include="ATMControllerUnitTest.cs" />
     <Compile Include="LogUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

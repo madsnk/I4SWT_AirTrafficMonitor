@@ -49,7 +49,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.AirSpace
             }
         }
 
-        private int CalcTrackDistance(ITrack track, ITrack track2)
+        public int CalcTrackDistance(ITrack track, ITrack track2)
         {
             return (int)Math.Sqrt(Math.Pow((track.Xcoor - track2.Xcoor), 2) + Math.Pow((track.Ycoor - track2.Ycoor), 2));
         }
