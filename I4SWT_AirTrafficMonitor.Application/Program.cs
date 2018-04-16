@@ -19,8 +19,12 @@ namespace I4SWT_AirTrafficMonitor.Application
             IConsoleWrapper console = new ConsoleWrapper();
             ITrackFactory trackFactory = new StandardTrackFactory();
             List<ITrack> tracks = new List<ITrack>();
-            List<ISeperationEvent> seperationEvents = new List<ISeperationEvent>(); 
-            IAirSpace airspace = new AirSpace(10000, 10000, 90000, 90000, 500, 20000, 300, 5000);
+            List<ISeperationEvent> seperationEvents = new List<ISeperationEvent>();
+
+            int verticalSeperationTolerance = 300;
+            int horizontalSeperationTolerance = 5000;
+
+            IAirSpace airspace = new AirSpace(10000, 10000, 90000, 90000, 500, 20000, verticalSeperationTolerance, horizontalSeperationTolerance);
             ILog log = new Log("testlog");
 
             controller = new ATMController(receiver, trackFactory, console, airspace, tracks, seperationEvents,log);
