@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IT1_ATMControllerLog.cs" />
     <Compile Include="IT1_SimpleControllerTrackTrackFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
