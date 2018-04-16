@@ -29,12 +29,6 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         }
 
         [Test]
-        public void DummyTest()
-        {
-            Assert.That(true, Is.EqualTo(true));
-        }
-
-        [Test]
         public void OnNewTrackData_OneNewTrackIntoEmptyTrackList_TrackListHasNewTrack()
         {
             var testData = new List<string>
