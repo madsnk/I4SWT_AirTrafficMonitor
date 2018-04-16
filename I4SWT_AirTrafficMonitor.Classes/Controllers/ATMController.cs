@@ -35,8 +35,6 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             _log = log;
 
             _receiver.TransponderDataReady += OnNewTrackData;
-
-
         }
 
         void OnNewTrackData(object sender, RawTransponderDataEventArgs eventArgs)
