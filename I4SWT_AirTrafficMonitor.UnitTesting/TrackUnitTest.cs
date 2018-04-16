@@ -123,5 +123,25 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _uut.UpdateTrack(testTrack);
             Assert.That(_uut.Course, Is.EqualTo(expectedCourse));
         }
+
+        [Test]
+        public void UpdateTrack_SeveralUpdates_VelocityIsCorrect()
+        {
+            uint alt = 18000;
+            var xStart = 80000;
+            var yStart = 80000;
+
+            ITrack _uutTrack = new Track(testTag, xStart, yStart, alt, testTime);
+
+            ITrack updateTestTrack1 = new Track(testTag, xStart - 270, yStart, alt, testTime.AddSeconds(1));
+            ITrack updateTestTrack2 = new Track(testTag, xStart - 2 * 270, yStart, alt, testTime.AddSeconds(2));
+            ITrack updateTestTrack3 = new Track(testTag, xStart - 3 * 270, yStart, alt, testTime.AddSeconds(3));
+
+            _uutTrack.UpdateTrack(updateTestTrack1);
+            _uutTrack.UpdateTrack(updateTestTrack2);
+            _uutTrack.UpdateTrack(updateTestTrack3);
+
+            Assert.That(_uutTrack.Velocity, Is.EqualTo(270));
+        }
     }
 }
