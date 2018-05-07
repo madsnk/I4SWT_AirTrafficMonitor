@@ -70,7 +70,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                     }
                 }
             }
-            _myAirSpace.SortTracks(ref _tracks, ref _activeSeperationEvents);
+            _tracks = _myAirSpace.SortTracks(_tracks);
+            _activeSeperationEvents = _myAirSpace.FindSeperationEvents(_tracks);
 
             Log(_activeSeperationEvents);
 

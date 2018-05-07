@@ -35,7 +35,6 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _receiver = Substitute.For<ITransponderReceiver>();
             _trackFactory = Substitute.For<ITrackFactory>();
             //_trackFactory = new FakeTrackfactory();
-            //_track = Substitute.For<ITrack>();
             _tracks = new List<ITrack>();
             _airSpace = Substitute.For<IAirSpace>();
             _seperationEvent = Substitute.For<ISeperationEvent>();
@@ -70,8 +69,6 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            //_track = _trackFactory.CreateTrack("ATR423");
-
             _track.Received(1).UpdateTrack(_track);
         }
 
@@ -86,7 +83,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
+            //_airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
+            _airSpace.Received(1).SortTracks(new List<ITrack>(new))
         }
 
         [Test]
