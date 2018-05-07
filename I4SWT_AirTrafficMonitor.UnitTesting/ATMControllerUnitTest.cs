@@ -55,8 +55,6 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _trackFactory.Received(1).CreateTrack("ATR423");
         }
 
-
-
         [Test]
         public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
@@ -105,8 +103,5 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
 
             _log.Received(1).Append("test");
         }
-
-
-
     }
 }
