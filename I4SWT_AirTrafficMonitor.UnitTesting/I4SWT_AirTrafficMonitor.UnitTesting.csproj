@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="AirSpaceUnitTest.cs" />
     <Compile Include="ATMControllerUnitTest.cs" />
+    <Compile Include="Fakes\FakeTrack.cs" />
+    <Compile Include="Fakes\FakeTrackfactory.cs" />
     <Compile Include="LogUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeperationEventUnitTest.cs" />

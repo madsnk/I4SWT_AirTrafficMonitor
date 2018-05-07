@@ -10,6 +10,7 @@ using I4SWT_AirTrafficMonitor.Classes.Log;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
 using I4SWT_AirTrafficMonitor.Classes.SeperationEvent;
 using TransponderReceiver;
+using I4SWT_AirTrafficMonitor.UnitTesting.Fakes;
 
 namespace I4SWT_AirTrafficMonitor.UnitTesting
 {
@@ -32,8 +33,9 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             _console = Substitute.For<IConsoleWrapper>();
             _receiver = Substitute.For<ITransponderReceiver>();
-            _trackFactory = Substitute.For<ITrackFactory>();//new FakeTrackFactory();
-            _track = Substitute.For<ITrack>();
+            _trackFactory = Substitute.For<ITrackFactory>();
+            //_trackFactory = new FakeTrackfactory();
+            //_track = Substitute.For<ITrack>();
             _tracks = new List<ITrack>();
             _airSpace = Substitute.For<IAirSpace>();
             _seperationEvent = Substitute.For<ISeperationEvent>();
@@ -55,6 +57,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _trackFactory.Received(1).CreateTrack("ATR423");
         }
 
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         [Test]
         public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
@@ -66,7 +70,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _track = _trackFactory.CreateTrack("ATR423");
+            //_track = _trackFactory.CreateTrack("ATR423");
 
             _track.Received(1).UpdateTrack(_track);
         }
@@ -80,12 +84,9 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
                 "YYY321"
             };
 
-            _tracks.Add(_trackFactory.CreateTrack(fakeStrings[0]));
-            _tracks.Add(_trackFactory.CreateTrack(fakeStrings[1]));
-
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-    
-            _airSpace.Received(1).SortTracks(ref _tracks,ref _seperationEvents);
+
+            _airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
         }
 
         [Test]
