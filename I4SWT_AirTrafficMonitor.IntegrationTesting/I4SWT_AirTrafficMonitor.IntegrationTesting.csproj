@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IT1_ATMControllerLog.cs" />
-    <Compile Include="IT1_SimpleControllerTrackTrackFactory.cs" />
     <Compile Include="IT2_ATMController_Track_TrackFactory.cs" />
     <Compile Include="IT3_ATMControllerSeparationEventAirSpace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

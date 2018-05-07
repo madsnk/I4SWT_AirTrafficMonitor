@@ -77,8 +77,16 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         [Test]
         public void UpdateTrack_TrackDoesNotReferToSameTag_ThrowsTrackException()
         {
-            ITrack testTrack = new Track("ZZZ123", 0, 0, 0, DateTime.Now);
+            ITrack testTrack = new Track("ZZZ123", 0, 0, 0, new DateTime(2017, 10, 10, 10, 10, 10, 0));
             Assert.That(() => _uut.UpdateTrack(testTrack), Throws.TypeOf<TrackException>());
+        }
+
+        [Test]
+        public void Constructor_InvalidTrackId_ThrowsTrackException()
+        {
+            ITrack testTrack;
+            Assert.That(
+                () => testTrack = new Track("XXX1234", 0, 0, 0, new DateTime(2017, 10, 10, 10, 10, 10, 0)), Throws.TypeOf<TrackException>());
         }
 
         [TestCase(100, 0, 1, 100)]

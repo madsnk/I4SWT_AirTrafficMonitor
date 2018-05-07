@@ -57,7 +57,6 @@
     <Compile Include="AirSpace\IAirSpace.cs" />
     <Compile Include="ConsoleWrapper.cs" />
     <Compile Include="Controllers\ATMController.cs" />
-    <Compile Include="Controllers\SimpleController.cs" />
     <Compile Include="IConsoleWrapper.cs" />
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Log.cs" />
