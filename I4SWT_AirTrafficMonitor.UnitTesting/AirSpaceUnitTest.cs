@@ -66,8 +66,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _tracks = _uut.SortTracks(_tracks);
             _seperationEvents = _uut.FindSeperationEvents(_tracks);
 
-           Assert.That(_seperationEvents.Count,Is.EqualTo(3));
-
+            Assert.That(_seperationEvents.Count,Is.EqualTo(3));
         }
 
         [Test]
