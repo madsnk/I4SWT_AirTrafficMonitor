@@ -40,6 +40,10 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _seperationEvent = Substitute.For<ISeperationEvent>();
             _seperationEvents = new List<ISeperationEvent>();
             _log = Substitute.For<ILog>();
+
+            _trackFactory.CreateTrack("XXX123").Returns(new FakeTrack("XXX123"));
+            _trackFactory.CreateTrack("YYY123").Returns(new FakeTrack("YYY123"));
+
             _uut = new ATMController(_receiver, _trackFactory,_console,_airSpace,_tracks, _seperationEvents,_log);
         }
 
@@ -48,12 +52,12 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             var fakeStrings = new List<string>
             {
-                "ATR423"
+                "XXX123"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _trackFactory.Received(1).CreateTrack("ATR423");
+            _trackFactory.Received(1).CreateTrack("XXX123");
         }
 
 
@@ -63,7 +67,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             var fakeStrings = new List<string>
             {
-                "ATR423"
+                "XXX123"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
@@ -78,13 +82,18 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             var fakeStrings = new List<string>
             {
                 "XXX123",
-                "YYY321"
+                "YYY123"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
             //_airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
-            _airSpace.Received(1).SortTracks(new List<ITrack>(new))
+            var fakeTrackList = new List<ITrack>
+            {
+                new FakeTrack("XXX123"),
+                new FakeTrack("YYY123")
+            };
+            _airSpace.Received(1).SortTracks(fakeTrackList);
         }
 
         [Test]
