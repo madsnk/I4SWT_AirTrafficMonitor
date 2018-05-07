@@ -50,7 +50,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 //_console.Report(track);
                 _tempTrack = _trackFactory.CreateTrack(track);
 
-                if ((_tracks == null) && (!_tracks.Any()))
+                if ((_tracks == null) || (!_tracks.Any()))
                 {
                     _tracks.Add(_tempTrack);
                     //_console.Report(_tempTrack.ToString());

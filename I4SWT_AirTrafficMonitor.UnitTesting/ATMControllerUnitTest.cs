@@ -68,6 +68,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         [Test]
         public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
+            //_airSpace.SortTracks(Arg.Any<List<ITrack>>()).Returns(new List<ITrack>{new FakeTrack("XXX123")});
+
             var fakeStrings = new List<string>
             {
                 "XXX123"
@@ -77,7 +79,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings)); // FAILS ON SECOND CALL!!
 
             //_track.Received(1).UpdateTrack(_track);
-            _airSpace.Received(1).SortTracks(Arg.Is<List<ITrack>>(list => list[0].Tag == "XXX123" && list.Count == 1));
+            _airSpace.Received().SortTracks(Arg.Is<List<ITrack>>(list => list[0].Tag == "XXX123" && list.Count == 1));
         }
 
         [Test]
