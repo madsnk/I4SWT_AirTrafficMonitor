@@ -50,7 +50,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
                 //_console.Report(track);
                 _tempTrack = _trackFactory.CreateTrack(track);
 
-                if (!_tracks.Any())
+                if ((_tracks == null) && (!_tracks.Any()))
                 {
                     _tracks.Add(_tempTrack);
                     //_console.Report(_tempTrack.ToString());
@@ -82,10 +82,13 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
 
         void Log(List<ISeperationEvent> seperations)
         {
-            foreach (var seperation in seperations)
+            if (seperations != null)
             {
-                //_console.Report("SEPARATION EVENT");
-                _log.Append(seperation.csvFormat());
+                foreach (var seperation in seperations)
+                {
+                    //_console.Report("SEPARATION EVENT");
+                    _log.Append(seperation.csvFormat());
+                }
             }
         }
 
@@ -94,17 +97,24 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             _console.Report("\r\n********************************************************************");
             _console.Report("***************** All Tracks in monitored Airspace *****************");
             _console.Report("********************************************************************");
-            foreach (var track in tracks)
+
+            if (tracks != null)
             {
-                _console.Report(track.ToString() + "\r\n");
+                foreach (var track in tracks)
+                {
+                    _console.Report(track.ToString() + "\r\n");
+                }
             }
 
             _console.Report("\r\n********************************************************************");
             _console.Report("******************** Current Seperation Events *********************");
             _console.Report("********************************************************************");
-            foreach (var seperation in seperations)
+            if (seperations != null)
             {
-                _console.Report(seperation.ToString());
+                foreach (var seperation in seperations)
+                {
+                    _console.Report(seperation.ToString());
+                }
             }
         }
 

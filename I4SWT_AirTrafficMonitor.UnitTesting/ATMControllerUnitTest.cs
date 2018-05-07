@@ -44,6 +44,9 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _trackFactory.CreateTrack("XXX123").Returns(new FakeTrack("XXX123"));
             _trackFactory.CreateTrack("YYY123").Returns(new FakeTrack("YYY123"));
 
+            //_airSpace.FindSeperationEvents(_tracks).Returns(_seperationEvents);
+
+
             _uut = new ATMController(_receiver, _trackFactory,_console,_airSpace,_tracks, _seperationEvents,_log);
         }
 
