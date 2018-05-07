@@ -118,5 +118,28 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
                 str.ToLower().Contains("15000")
             ));
         }
+
+        [Test]
+        public void UpdateTrack_TrackMovesOutOfAirspace_TrackIsNoLongerShown()
+        {
+            var testData1 = new List<string>
+            {
+                "XXX123;10000;10000;15000;20171122112233100"
+            };
+            var testData2 = new List<string>
+            {
+                "XXX123;12000;8000;15000;20171122112213100" // Move out of airspace ( < 10000 )
+            };
+
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData1));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData2));
+
+            //Assert.That(_drivenUut_controller.GetTracks()[0].Course, Is.EqualTo(45));
+
+            _console.Received().Report(Arg.Is<string>(str =>
+                !str.ToLower().Contains("tag:") &&
+                !str.ToLower().Contains("xxx123")
+            ));
+        }
     }
 }
