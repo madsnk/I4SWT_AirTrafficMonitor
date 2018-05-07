@@ -139,9 +139,9 @@ namespace I4SWT_AirTrafficMonitor.Classes.Controllers
             }
         }
 
-        public List<ITrack> GetTracks()
+        /*public List<ITrack> GetTracks()
         {
             return _tracks;
-        }
+        }*/
     }
 }

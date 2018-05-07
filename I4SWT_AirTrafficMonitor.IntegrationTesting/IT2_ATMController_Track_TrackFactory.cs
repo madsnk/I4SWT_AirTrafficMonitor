@@ -49,13 +49,20 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         {
             var testData = new List<string>
             {
-                "XXX123;10000;10000;15000;20171122112233100"
+                "XXX123;12000;12000;15000;20171122112233100"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData));
-            Assert.That(_drivenUut_controller.GetTracks()[0].Xcoor, Is.EqualTo(10000));
-            Assert.That(_drivenUut_controller.GetTracks()[0].Tag, Is.EqualTo("XXX123"));
-            Assert.That(_drivenUut_controller.GetTracks()[0].TimeStamp, Is.EqualTo(new DateTime(2017, 11, 22, 11, 22, 33, 100)));
+            //Assert.That(_drivenUut_controller.GetTracks()[0].Xcoor, Is.EqualTo(10000));
+            //Assert.That(_drivenUut_controller.GetTracks()[0].Tag, Is.EqualTo("XXX123"));
+            //Assert.That(_drivenUut_controller.GetTracks()[0].TimeStamp, Is.EqualTo(new DateTime(2017, 11, 22, 11, 22, 33, 100)));
+
+            _console.Received().Report(Arg.Is<string>(str =>
+                str.ToLower().Contains("coordinates") &&
+                str.ToLower().Contains("12000") &&
+                str.ToLower().Contains("tag") &&
+                str.ToLower().Contains("xxx123")
+                ));
         }
 
         [Test]
@@ -73,7 +80,16 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData1));
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData2));
 
-            Assert.That(_drivenUut_controller.GetTracks()[0].Velocity, Is.EqualTo(200));
+            //Assert.That(_drivenUut_controller.GetTracks()[0].Velocity, Is.EqualTo(200));
+
+            _console.Received().Report(Arg.Is<string>(str =>
+                str.ToLower().Contains("velocity:") &&
+                str.ToLower().Contains("200") &&
+                str.ToLower().Contains("tag:") &&
+                str.ToLower().Contains("xxx123") &&
+                str.ToLower().Contains("altitude:") &&
+                str.ToLower().Contains("15000")
+            ));
         }
 
         [Test]
@@ -91,7 +107,16 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData1));
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData2));
 
-            Assert.That(_drivenUut_controller.GetTracks()[0].Course, Is.EqualTo(45));
+            //Assert.That(_drivenUut_controller.GetTracks()[0].Course, Is.EqualTo(45));
+
+            _console.Received().Report(Arg.Is<string>(str =>
+                str.ToLower().Contains("course:") &&
+                str.ToLower().Contains("45") &&
+                str.ToLower().Contains("tag:") &&
+                str.ToLower().Contains("xxx123") &&
+                str.ToLower().Contains("altitude:") &&
+                str.ToLower().Contains("15000")
+            ));
         }
     }
 }
