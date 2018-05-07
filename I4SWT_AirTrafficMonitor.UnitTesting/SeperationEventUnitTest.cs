@@ -25,5 +25,17 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             Assert.AreEqual("2018-04-12 08.59.39.481;XXX123;YYY321\n", _uut.csvFormat());
         }
+
+        [Test]
+        public void getHorizontalSep_setFromConstructor_resultIsCorrect()
+        {
+            Assert.That(_uut.HorizontalSeperation, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void getVerticalSep_setFromConstructor_resultIsCorrect()
+        {
+            Assert.That(_uut.VerticalSeperation, Is.EqualTo(1));
+        }
     }
 }
