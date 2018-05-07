@@ -49,6 +49,12 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
                 _uut_seperationEvents, _uut_log);
         }
 
+        [TearDown]
+        public void Cleanup()
+        {
+            File.Delete("IntergrationTestLog" + "_" + _timeString + ".csv");
+        }
+
         [Test]
         public void Draw_AddTwoConflictingTracks_consoleWriteSeparantionEvent()
         {
