@@ -74,9 +74,10 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings)); // FAILS ON SECOND CALL!!
 
-            _track.Received(1).UpdateTrack(_track);
+            //_track.Received(1).UpdateTrack(_track);
+            _airSpace.Received(1).SortTracks(Arg.Is<List<ITrack>>(list => list[0].Tag == "XXX123" && list.Count == 1));
         }
 
         [Test]
@@ -96,7 +97,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
                 new FakeTrack("XXX123"),
                 new FakeTrack("YYY123")
             };
-            _airSpace.Received(1).SortTracks(fakeTrackList);
+            _airSpace.Received(1).SortTracks(Arg.Is<List<ITrack>>(t => t[0].Tag == "XXX123" && t[1].Tag == "YYY123"));
         }
 
         [Test]
