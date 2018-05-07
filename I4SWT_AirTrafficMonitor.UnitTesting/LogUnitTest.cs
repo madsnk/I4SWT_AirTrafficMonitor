@@ -40,8 +40,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             _uut.Append("2018-04-12 08.59.39.481;XXX123;YYY456\n");
 
-            var s = File.ReadAllLines("UnitTestLog" + "_" + _timeString + ".csv");
-            Assert.AreEqual("2018-04-12 08.59.39.481;XXX123;YYY456", s[1]);
+            var f = File.ReadAllLines("UnitTestLog" + "_" + _timeString + ".csv");
+            Assert.AreEqual("2018-04-12 08.59.39.481;XXX123;YYY456", f[1]);
         }
         
 

@@ -35,7 +35,7 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         {
             _console = Substitute.For<IConsoleWrapper>();
             _receiver = Substitute.For<ITransponderReceiver>();
-            _trackFactory = new FakeTrackFactory();
+            _trackFactory = Substitute.For<ITrackFactory>();
             _track = Substitute.For<ITrack>();
             _tracks = new List<ITrack>();
             _airSpace = Substitute.For<IAirSpace>();

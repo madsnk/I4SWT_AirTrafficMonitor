@@ -63,7 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeperationEvent\ISeperationEvent.cs" />
     <Compile Include="SeperationEvent\SeperationEvent.cs" />
-    <Compile Include="Tracks\FakeTrackFactory.cs" />
     <Compile Include="Tracks\ITrack.cs" />
     <Compile Include="Tracks\ITrackFactory.cs" />
     <Compile Include="Tracks\StandardTrackFactory.cs" />
