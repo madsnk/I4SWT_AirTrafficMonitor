@@ -32,7 +32,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             _console = Substitute.For<IConsoleWrapper>();
             _receiver = Substitute.For<ITransponderReceiver>();
-            _trackFactory = new FakeTrackFactory();
+            _trackFactory = Substitute.For<ITrackFactory>();//new FakeTrackFactory();
             _track = Substitute.For<ITrack>();
             _tracks = new List<ITrack>();
             _airSpace = Substitute.For<IAirSpace>();
@@ -43,38 +43,22 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         }
 
         [Test]
-        public void OnNewTrackData_AddNonExixtingData_DataAddedToList()
+        public void OnNewTrackData_AddNonExixtingData_CreateTrack()
         {
             var fakeStrings = new List<string>
             {
                 "ATR423"
             };
 
-            _track = _trackFactory.CreateTrack(fakeStrings[0]);
-
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            Assert.That(_tracks.Count(x => x.Tag.Equals("ATR423")) == 1);
+            _trackFactory.Received(1).CreateTrack("ATR423");
         }
 
-        [Test]
-        public void OnNewTrackData_AddExixtingData_OnlyOneCopyOfPlaneInList()
-        {
-            var fakeStrings = new List<string>
-            {
-                "ATR423"
-            };
 
-            _track = _trackFactory.CreateTrack(fakeStrings[0]);
-
-            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-
-            Assert.That(_tracks.Count(x => x.Tag.Equals("ATR423")) == 1);
-        }
 
         [Test]
-        public void OnNewTrackData_AddExixtingData_DataUpdatedInList()
+        public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
             var fakeStrings = new List<string>
             {
@@ -84,7 +68,7 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _track = _tracks.Find(x => x.Tag.Equals("ATR423"));
+            _track = _trackFactory.CreateTrack("ATR423");
 
             _track.Received(1).UpdateTrack(_track);
         }
@@ -121,5 +105,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
 
             _log.Received(1).Append("test");
         }
+
+
+
     }
 }
