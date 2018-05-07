@@ -22,6 +22,12 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             
         }
 
+        [TearDown]
+        public void Cleanup()
+        {
+            File.Delete("UnitTestLog" + "_" + _timeString + ".csv");
+        }
+
         [Test]
         public void Log_newLog_LogExixst()
         {
@@ -40,8 +46,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             _uut.Append("2018-04-12 08.59.39.481;XXX123;YYY456\n");
 
-            var f = File.ReadAllLines("UnitTestLog" + "_" + _timeString + ".csv");
-            Assert.AreEqual("2018-04-12 08.59.39.481;XXX123;YYY456", f[1]);
+            var s = File.ReadAllLines("UnitTestLog" + "_" + _timeString + ".csv");
+            Assert.AreEqual("2018-04-12 08.59.39.481;XXX123;YYY456", s[1]);
         }
         
 
