@@ -101,15 +101,11 @@ namespace I4SWT_AirTrafficMonitor.Classes.Tracks
                 return 180 + (uint)(radians * (180 / Math.PI));
             }
             // if in 4.
-            else if (xComponent >= 0 && yComponent <= 0)
+            else
             {
                 var radians = Math.Atan(opposite / adjacent);
 
                 return 180 - (uint)(radians * (180 / Math.PI));
-            }
-            else
-            {
-                return 0;
             }
         }
 
