@@ -37,5 +37,12 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             Assert.That(_uut.VerticalSeperation, Is.EqualTo(1));
         }
+
+        [Test]
+        public void ToString_setFromConstructor_stringIsCorrect()
+        {
+            Assert.AreEqual("Time:           2018-04-12 08.59.39.481\r\nInvolved Tags:  XXX123, YYY321\r\nHorizontal Sep: 2\r\nVertical Sep:   1\r\n", _uut.ToString());
+        }
+
     }
 }
