@@ -41,21 +41,26 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
             _log = new Log("path");
             _trackFactory = new StandardTrackFactory();
             _tracks = new List<ITrack>();
+
+            // No seperation events is returned, just an empty list
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent>());
+
             _drivenUut_controller = new ATMController(_receiver, _trackFactory, _console, _airSpace, _tracks, _seperationEvents, _log);
         }
 
         [Test]
         public void CreateTrack_createNewTrackFromRawTrackData_TrackIsCreatedCorrectly()
         {
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+
             var testData = new List<string>
             {
                 "XXX123;12000;12000;15000;20171122112233100"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData));
-            //Assert.That(_drivenUut_controller.GetTracks()[0].Xcoor, Is.EqualTo(10000));
-            //Assert.That(_drivenUut_controller.GetTracks()[0].Tag, Is.EqualTo("XXX123"));
-            //Assert.That(_drivenUut_controller.GetTracks()[0].TimeStamp, Is.EqualTo(new DateTime(2017, 11, 22, 11, 22, 33, 100)));
 
             _console.Received().Report(Arg.Is<string>(str =>
                 str.ToLower().Contains("coordinates") &&
@@ -68,6 +73,10 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         [Test]
         public void UpdateTrack_updateTrackObjWithNewRawTrackData_VelocityUpdatedCorrectly()
         {
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+
             var testData1 = new List<string>
             {
                 "XXX123;10000;10000;15000;20171122112233100"
@@ -95,6 +104,10 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         [Test]
         public void UpdateTrack_updateTrackObjWithNewRawTrackData_CourseUpdatedCorrectly()
         {
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+
             var testData1 = new List<string>
             {
                 "XXX123;10000;10000;15000;20171122112233100"
@@ -122,6 +135,12 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         [Test]
         public void UpdateTrack_TrackMovesOutOfAirspace_TrackIsNoLongerShown()
         {
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+
+            _airSpace.SortTracks(Arg.Is<List<ITrack>>(list => list[0].Ycoor < 10000 || list[0].Xcoor < 10000)).Returns(new List<ITrack>());
+
             var testData1 = new List<string>
             {
                 "XXX123;10000;10000;15000;20171122112233100"
@@ -132,13 +151,13 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData1));
+
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(testData2));
 
-            //Assert.That(_drivenUut_controller.GetTracks()[0].Course, Is.EqualTo(45));
-
-            _console.Received().Report(Arg.Is<string>(str =>
-                !str.ToLower().Contains("tag:") &&
-                !str.ToLower().Contains("xxx123")
+            // Assert that received exactly 1!
+            _console.Received(1).Report(Arg.Is<string>(str =>
+                str.ToLower().Contains("tag:") &&
+                str.ToLower().Contains("xxx123")
             ));
         }
     }
