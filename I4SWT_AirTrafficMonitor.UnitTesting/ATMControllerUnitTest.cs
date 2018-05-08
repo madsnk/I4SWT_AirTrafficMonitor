@@ -44,8 +44,11 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _trackFactory.CreateTrack("XXX123").Returns(new FakeTrack("XXX123"));
             _trackFactory.CreateTrack("YYY123").Returns(new FakeTrack("YYY123"));
 
-            //_airSpace.FindSeperationEvents(_tracks).Returns(_seperationEvents);
-
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+          
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent>());
 
             _uut = new ATMController(_receiver, _trackFactory,_console,_airSpace,_tracks, _seperationEvents,_log);
         }
