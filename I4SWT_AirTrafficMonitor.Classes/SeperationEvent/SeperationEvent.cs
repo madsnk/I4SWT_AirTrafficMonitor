@@ -27,9 +27,9 @@ namespace I4SWT_AirTrafficMonitor.Classes.SeperationEvent
             return TimeOfOccurrence.ToString("yyyy-MM-dd HH.mm.ss.fff") + ";" + FirstTrackTag + ";" + SecondTrackTag + "\n";
         }
 
-        /*public override string ToString()
+        public override string ToString()
         {
            return "Time:           " + TimeOfOccurrence.ToString("yyyy-MM-dd HH.mm.ss.fff")  + "\r\nInvolved Tags:  " + FirstTrackTag + ", " + SecondTrackTag + "\r\nHorizontal Sep: " + HorizontalSeperation + "\r\nVertical Sep:   " + VerticalSeperation + "\r\n";
-        }*/
+        }
     }
 }

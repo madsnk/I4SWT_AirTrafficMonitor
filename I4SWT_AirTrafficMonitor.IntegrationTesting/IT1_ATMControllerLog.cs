@@ -52,13 +52,14 @@ namespace I4SWT_AirTrafficMonitor.IntegrationTesting
         [Test]
         public void Append_createFakeSeperationEvent_dataInLog()
         {
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent> { _seperationEvent });
+
             var fakeStrings = new List<string>
             {
                 "XXX123"
             };
 
             _seperationEvent.csvFormat().Returns("2018-04-12 08.59.39.481;XXX123;YYY456\n");
-            _seperationEvents.Add(_seperationEvent);
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
