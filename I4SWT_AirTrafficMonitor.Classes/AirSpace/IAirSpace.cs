@@ -10,6 +10,8 @@ namespace I4SWT_AirTrafficMonitor.Classes.AirSpace
 {
     public interface IAirSpace
     {
-        void SortTracks(ref List<ITrack> tracks, ref List<ISeperationEvent> activeSeperationEvents);
+        List<ITrack> SortTracks(List<ITrack> tracks);
+
+        List<ISeperationEvent> FindSeperationEvents(List<ITrack> tracks);
     }
 }

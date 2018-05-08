@@ -10,6 +10,7 @@ using I4SWT_AirTrafficMonitor.Classes.Log;
 using I4SWT_AirTrafficMonitor.Classes.Tracks;
 using I4SWT_AirTrafficMonitor.Classes.SeperationEvent;
 using TransponderReceiver;
+using I4SWT_AirTrafficMonitor.UnitTesting.Fakes;
 
 namespace I4SWT_AirTrafficMonitor.UnitTesting
 {
@@ -32,13 +33,23 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             _console = Substitute.For<IConsoleWrapper>();
             _receiver = Substitute.For<ITransponderReceiver>();
-            _trackFactory = Substitute.For<ITrackFactory>();//new FakeTrackFactory();
-            _track = Substitute.For<ITrack>();
+            _trackFactory = Substitute.For<ITrackFactory>();
+            //_trackFactory = new FakeTrackfactory();
             _tracks = new List<ITrack>();
             _airSpace = Substitute.For<IAirSpace>();
             _seperationEvent = Substitute.For<ISeperationEvent>();
             _seperationEvents = new List<ISeperationEvent>();
             _log = Substitute.For<ILog>();
+
+            _trackFactory.CreateTrack("XXX123").Returns(new FakeTrack("XXX123"));
+            _trackFactory.CreateTrack("YYY123").Returns(new FakeTrack("YYY123"));
+
+            // returns same value as input argument
+            List<ITrack> objectPassedIn = null;
+            _airSpace.SortTracks(Arg.Do<List<ITrack>>(x => objectPassedIn = x)).Returns(x => objectPassedIn);
+          
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent>());
+
             _uut = new ATMController(_receiver, _trackFactory,_console,_airSpace,_tracks, _seperationEvents,_log);
         }
 
@@ -47,28 +58,31 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         {
             var fakeStrings = new List<string>
             {
-                "ATR423"
+                "XXX123"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            _trackFactory.Received(1).CreateTrack("ATR423");
+            _trackFactory.Received(1).CreateTrack("XXX123");
         }
 
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         [Test]
         public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
+            //_airSpace.SortTracks(Arg.Any<List<ITrack>>()).Returns(new List<ITrack>{new FakeTrack("XXX123")});
+
             var fakeStrings = new List<string>
             {
-                "ATR423"
+                "XXX123"
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings)); // FAILS ON SECOND CALL!!
 
-            _track = _trackFactory.CreateTrack("ATR423");
-
-            _track.Received(1).UpdateTrack(_track);
+            //_track.Received(1).UpdateTrack(_track);
+            _airSpace.Received().SortTracks(Arg.Is<List<ITrack>>(list => list[0].Tag == "XXX123" && list.Count == 1));
         }
 
         [Test]
@@ -77,27 +91,31 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             var fakeStrings = new List<string>
             {
                 "XXX123",
-                "YYY321"
+                "YYY123"
             };
 
-            _tracks.Add(_trackFactory.CreateTrack(fakeStrings[0]));
-            _tracks.Add(_trackFactory.CreateTrack(fakeStrings[1]));
-
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-    
-            _airSpace.Received(1).SortTracks(ref _tracks,ref _seperationEvents);
+
+            //_airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
+            var fakeTrackList = new List<ITrack>
+            {
+                new FakeTrack("XXX123"),
+                new FakeTrack("YYY123")
+            };
+            _airSpace.Received(1).SortTracks(Arg.Is<List<ITrack>>(t => t[0].Tag == "XXX123" && t[1].Tag == "YYY123"));
         }
 
         [Test]
         public void Append_createFakeSeperationEvent_logRecivesAppend()
         {
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent> { _seperationEvent });
+
             var fakeStrings = new List<string>
             {
                 "XXX123"
             };
 
             _seperationEvent.csvFormat().Returns("test");
-            _seperationEvents.Add(_seperationEvent);
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 

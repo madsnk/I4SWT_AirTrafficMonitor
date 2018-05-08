@@ -63,10 +63,10 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _tracks[2].Ycoor.Returns(10002);
             _tracks[2].Altitude.Returns(1002);
 
-            _uut.SortTracks(ref _tracks,ref _seperationEvents);
+            _tracks = _uut.SortTracks(_tracks);
+            _seperationEvents = _uut.FindSeperationEvents(_tracks);
 
-           Assert.That(_seperationEvents.Count,Is.EqualTo(3));
-
+            Assert.That(_seperationEvents.Count,Is.EqualTo(3));
         }
 
         [Test]
@@ -89,7 +89,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _tracks[2].Ycoor.Returns(1002);
             _tracks[2].Altitude.Returns(1002);
 
-            _uut.SortTracks(ref _tracks, ref _seperationEvents);
+            _tracks = _uut.SortTracks(_tracks);
+            _seperationEvents = _uut.FindSeperationEvents(_tracks);
 
             Assert.That(_seperationEvents.Count, Is.EqualTo(0));
 
@@ -109,7 +110,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _tracks[1].Altitude.Returns(500);
 
 
-            _uut.SortTracks(ref _tracks, ref _seperationEvents);
+            _tracks = _uut.SortTracks(_tracks);
+            _seperationEvents = _uut.FindSeperationEvents(_tracks);
 
             Assert.That(_seperationEvents.Count, Is.EqualTo(1));
 

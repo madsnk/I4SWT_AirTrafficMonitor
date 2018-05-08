@@ -21,16 +21,19 @@ namespace I4SWT_AirTrafficMonitor.Classes.AirSpace
             _horizontalSeperationTolerance = HorizontalSeperationTolerance;
         }
 
-        public void SortTracks(ref List<ITrack> tracks, ref List<ISeperationEvent> activeSeperationEvents)
+        public List<ITrack> SortTracks(List<ITrack> tracks)
         {
-            tracks.RemoveAll(track => track.Xcoor < _swBoundaryXCoor || track.Xcoor > _neBoundaryXCoor);
-            tracks.RemoveAll(track => track.Ycoor < _swBoundaryYCoor || track.Ycoor > _neBoundaryYCoor);
-            tracks.RemoveAll(
+            List<ITrack> sortedTracks = tracks;
+            sortedTracks.RemoveAll(track => track.Xcoor < _swBoundaryXCoor || track.Xcoor > _neBoundaryXCoor);
+            sortedTracks.RemoveAll(track => track.Ycoor < _swBoundaryYCoor || track.Ycoor > _neBoundaryYCoor);
+            sortedTracks.RemoveAll(
                 track => track.Altitude < _lowerAltitudeBoundary || track.Altitude > _upperAltitudeBoundary);
+            return sortedTracks;
+        }
 
-            // Clear Seperation events and determine current ones
-            activeSeperationEvents.Clear();
-
+        public List<ISeperationEvent> FindSeperationEvents(List<ITrack> tracks)
+        {
+            List<ISeperationEvent> activeSeperationEvents = new List<ISeperationEvent>();
             // for all tracks in list
             for (int i = 0; i < tracks.Count; i++)
             {
@@ -47,6 +50,7 @@ namespace I4SWT_AirTrafficMonitor.Classes.AirSpace
                     }
                 }
             }
+            return activeSeperationEvents;
         }
 
         public int CalcTrackDistance(ITrack track, ITrack track2)
