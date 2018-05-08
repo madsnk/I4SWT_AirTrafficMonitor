@@ -108,13 +108,14 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
         [Test]
         public void Append_createFakeSeperationEvent_logRecivesAppend()
         {
+            _airSpace.FindSeperationEvents(Arg.Any<List<ITrack>>()).Returns(new List<ISeperationEvent> { _seperationEvent });
+
             var fakeStrings = new List<string>
             {
                 "XXX123"
             };
 
             _seperationEvent.csvFormat().Returns("test");
-            _seperationEvents.Add(_seperationEvent);
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
