@@ -66,12 +66,9 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             _trackFactory.Received(1).CreateTrack("XXX123");
         }
 
-
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         [Test]
         public void OnNewTrackData_AddExixtingData_UpdateTrackCalledOnce()
         {
-            //_airSpace.SortTracks(Arg.Any<List<ITrack>>()).Returns(new List<ITrack>{new FakeTrack("XXX123")});
 
             var fakeStrings = new List<string>
             {
@@ -79,9 +76,8 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
             };
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
-            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings)); // FAILS ON SECOND CALL!!
+            _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            //_track.Received(1).UpdateTrack(_track);
             _airSpace.Received().SortTracks(Arg.Is<List<ITrack>>(list => list[0].Tag == "XXX123" && list.Count == 1));
         }
 
@@ -96,7 +92,6 @@ namespace I4SWT_AirTrafficMonitor.UnitTesting
 
             _receiver.TransponderDataReady += Raise.EventWith(new RawTransponderDataEventArgs(fakeStrings));
 
-            //_airSpace.Received(1).SortTracks(ref _tracks, ref _seperationEvents);
             var fakeTrackList = new List<ITrack>
             {
                 new FakeTrack("XXX123"),
